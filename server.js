@@ -1,22 +1,17 @@
-//^_^ Dependencies injection ^_^ // 
-const express = require('express'); 
-const mongo   = require('mongodb').MongoClient; 
-const app     = express();
-
-// ^)^ some constants for my server //
-const PORT = 5000; 
-const CONNECTION_STRING = 'mongodb://localhost:27017/url'; 
-const COLLECTION_NAME = 'urls';  
-
-app.get('/', function(request, response) {
+//^_^ Dependencies injection ^_^ //
+const express  = require('express');
+const urls     = require('./model/urls');
+const app      = express();
 
 
+const PORT = 5000;
 
-}); 
+// ^_^ Routing ^_^ //
+app.get('/new/:originlUrl', function(request, responed) {
 
+});
 
-app.listen(PORT); 
+app.get('/:shortUrl', funciton(request, responed) {
+});
 
-
-console.log('Listening on port ' + PORT); 
-
+app.listen(PORT);
