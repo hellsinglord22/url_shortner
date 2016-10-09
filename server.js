@@ -1,27 +1,35 @@
 //^_^ Dependencies injection ^_^ //
-const express   = require('express');
-const urls      = require('./model/urls');
-const settings = require('./settings'); 
-const renderer  = require('./lib/renderer'); 
-const app       = express();
-
-
+const express   					 = require('express');
+const urls      					 = require('./model/urls');
+const settings 						 = require('./settings'); 
+const renderer     				 = require('./lib/renderer'); 
+const shortUrlMicroService = require('./lib/shortUrlMicroService'); 
+const app       					 = express();
 
 app.use(renderer); 
-
+app.use(shortUrlMicroService); 
 
 
 app.get('/', function(request, responed) {
-		responed.renderHelpPage(); 
+		responed.renderHelpPage();
 });
 
 
-app.get('/new/:originalUrl', function(request, responed) {
- 
+app.get('/new/:url', function(request, responed) {
+	if (request.haveValidUrlParam()) {
+		request.generateShortUrl(function(error, generatedShortUrl) {
+			if (error) responed.send(error);  
+			else responed.send(generatedShortUrl); 
+		});
+	} else {
+		responed.send(); 
+	}
+
+
 });
 
-app.get('/:shortUrl', function(request, responed) {
-
+app.get('/:generatedShortUrl', function(request, responed) {
+	responed.redirectToOriginalUrlFrom(request.params.generatedShortUrl); 
 });
 
 // everything is working //
