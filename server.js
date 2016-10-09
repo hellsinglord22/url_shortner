@@ -4,6 +4,7 @@ const urls      					 = require('./model/urls');
 const settings 						 = require('./settings'); 
 const renderer     				 = require('./lib/renderer'); 
 const shortUrlMicroService = require('./lib/shortUrlMicroService'); 
+const constants						 = require('./constants'); 
 const app       					 = express();
 
 app.use(renderer); 
@@ -22,7 +23,7 @@ app.get('/new/:url(*)', function(request, responed) {
 			else responed.send(generatedShortUrl); 
 		});
 	} else {
-		responed.send('An Error'); 
+		responed.json(constants.INVALID_URL_FORMAT); 
 	}
 
 
