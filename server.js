@@ -15,14 +15,14 @@ app.get('/', function(request, responed) {
 });
 
 
-app.get('/new/:url', function(request, responed) {
+app.get('/new/:url(*)', function(request, responed) {
 	if (request.haveValidUrlParam()) {
 		request.generateShortUrl(function(error, generatedShortUrl) {
 			if (error) responed.send(error);  
 			else responed.send(generatedShortUrl); 
 		});
 	} else {
-		responed.send(); 
+		responed.send('An Error'); 
 	}
 
 
